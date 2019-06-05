@@ -1,0 +1,136 @@
+---
+title: "Varroa microbiome"
+author: "Sasha Mikheyev"
+date: "1/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T)
+```
+
+```{r library}
+library(tidyverse)
+library(sleuth)
+```
+
+
+```{r sleuth}
+bacteria <- read_tsv("mondet/gene_calls_nr.bacteria.tsv", col_names = c("contig", "protein_id", "taxname"), col_types = "-c---c-c") %>% filter(grepl("Bacteria", taxname)) %>% mutate(wolbachia = ifelse(grepl("Wolbachia", taxname), "yes", "no")) %>% separate(taxname, sep = ";\\s+", into = c("Bacteria",LETTERS[1:6]), extra = 'drop') %>% mutate(F = sub(";", "", F))
+samples <- tibble(id = dir(file.path("mondet/kallisto"))) %>% mutate(path = paste0("mondet/kallisto/", id)) %>%
+  left_join(read_tsv("mondet/treatments.tsv", col_types =  cols())) %>% mutate(sample = id, condition = shortName)
+```
+
+### Comparing males vs young
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("young", "males")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+
+
+```
+
+
+### Phoretics vs caged
+
+There were nio
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "phoreticCaged")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+```
+
+
+### Phoretic vs arresting
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "arresting")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+```
+
+### Аrresting vs. pre-laying
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "prelaying")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+```
+
+
+### Pre-laying vs. Laying
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "laying")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+```
+
+### Laying vs. post-laying
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("laying", "postlaying")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+```
+
+### Post-laying vs. Emerging
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("postlaying", "emerging")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+
+sleuth_significant %>% left_join(bacteria, by = c("target_id" = "contig")) %>% dplyr::filter(!is.na(A)) %>% ggplot(aes(A))+geom_histogram(stat = "count") + scale_y_log10() + coord_flip()
+```
+
+
+### Post-laying vs. non-laying
+
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("postlaying", "nonlaying")), extra_bootstrap_summary = TRUE)
+so <- sleuth_fit(so, ~condition, 'full')
+so <- sleuth_fit(so, ~1, 'reduced')
+so <- sleuth_lrt(so, 'reduced', 'full')
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+dim(sleuth_significant)
+head(sleuth_significant)
+```

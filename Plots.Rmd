@@ -1,0 +1,39 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+data = read.csv("/Users/lazzataibekova/Dropbox (OIST)/varroa microbiome/DE_varroa_microbiome.csv")
+data
+
+```
+
+```{r}
+plot(data$V_DE, data$M_DE, xlab = "Varroa genes", ylab = "Microbiome genes", main = "Total number of DEG")
+cor(data$V_DE, data$M_DE)
+```
+
+```{r}
+plot(data$V_up.regulated, data$M_up.regulated, xlab = "Varroa genes", ylab = "Microbiome genes", main = "Number of up-regulated genes")
+cor(data$V_up.regulated, data$M_up.regulated)
+```
+
+```{r}
+plot(data$V_down.regulated, data$M_down.regulated, xlab = "Varroa genes", ylab = "Microbiome genes", main = "Number of down-regulated genes")
+cor(data$V_down.regulated, data$M_down.regulated)
+```
+
+```{r}
+plot(data$V2_DE, data$M_DE,  xlab = "Varroa genes", ylab = "Microbiome genes", main = "Total number of DEG (re-mapped)")
+cor(data$V2_DE, data$M_DE)
+```
+```{r}
+plot(data$V2_up.regulated, data$M_up.regulated,  xlab = "Varroa genes", ylab = "Microbiome genes", main = "Number of up-regulated genes (re-mapped)")
+cor(data$V2_up.regulated, data$M_up.regulated)
+```
+
+```{r}
+plot(data$V2_down.regulated, data$M_down.regulated,  xlab = "Varroa genes", ylab = "Microbiome genes", main = "Number of down-regulated genes (re-mapped)")
+cor(data$V2_down.regulated, data$M_down.regulated)
+```
+
