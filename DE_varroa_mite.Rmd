@@ -1,5 +1,5 @@
 ---
-title: "Varroa"
+title: "Varroa re-mapped"
 author: "Lazzat Aibekova"
 date: "6/04/2019"
 output: html_document
@@ -156,7 +156,7 @@ up_down_regulated
 ### Аrresting vs. pre-laying
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "prelaying")), extra_bootstrap_summary = TRUE)
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("arresting", "prelaying")), extra_bootstrap_summary = TRUE)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
@@ -188,7 +188,7 @@ up_down_regulated
 ### Pre-laying vs. Laying
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "laying")), extra_bootstrap_summary = TRUE)
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("prelaying", "laying")), extra_bootstrap_summary = TRUE)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
@@ -203,8 +203,8 @@ models(so)
 ```
 Number of Differentially expressed genes (TRUE):
 ```{r}
-so = sleuth_wt(so, 'conditionphoretic')
-results_table = sleuth_results(so, 'conditionphoretic')
+so = sleuth_wt(so, 'conditionprelaying')
+results_table = sleuth_results(so, 'conditionprelaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```

@@ -1,41 +1,50 @@
 ---
-title: "Varroa microbiome"
-author: "Sasha Mikheyev"
-date: "1/23/2019"
+title: "Gene-level DE analysis"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = T)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r library}
-library(tidyverse)
+```{r}
 library(sleuth)
-```
+library(tidyverse)
 
+```
 
 ```{r sleuth}
-bacteria <- read_tsv("mondet/gene_calls_nr.bacteria.tsv", col_names = c("contig", "protein_id", "taxname"), col_types = "-c---c-c") %>% filter(grepl("Bacteria", taxname)) %>% mutate(wolbachia = ifelse(grepl("Wolbachia", taxname), "yes", "no")) %>% separate(taxname, sep = ";\\s+", into = c("Bacteria",LETTERS[1:6]), extra = 'drop') %>% mutate(F = sub(";", "", F))
-samples <- tibble(id = dir(file.path("mondet/kallisto"))) %>% mutate(path = paste0("mondet/kallisto/", id)) %>%
+samples <- tibble(id = dir(file.path("mondet/kallisto_mite"))) %>% mutate(path = paste0("mondet/kallisto_mite/", id)) %>%
   left_join(read_tsv("mondet/treatments.tsv", col_types =  cols())) %>% mutate(sample = id, condition = shortName)
 ```
 
+#transcript to gene table
+```{r}
+t2g = read.csv("/Users/lazzataibekova/Dropbox (OIST)/varroa microbiome/genebank_gene_map.csv", header=T)
+```
 
 ### Comparing males vs young
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("young", "males")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("young", "males")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
-
-
 ```
+
 ```{r}
 models(so)
 ```
@@ -46,23 +55,30 @@ results_table = sleuth_results(so, 'conditionyoung')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
-
 ###Young vs Phoretic
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("young", "phoretic")), extra_bootstrap_summary = TRUE)
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("young", "phoretic")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
+
+```{r}
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -78,26 +94,29 @@ results_table = sleuth_results(so, 'conditionyoung')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
+```
+### Phoretics vs caged
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "phoreticCaged")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
 ```
 
-### Phoretics vs caged
-
-There were nio
+```{r}
+plot_pca(so, color_by = 'condition')
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "phoreticCaged")), extra_bootstrap_summary = TRUE)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -113,27 +132,34 @@ results_table = sleuth_results(so, 'conditionphoreticCaged')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
 ### Phoretic vs arresting
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "arresting")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("phoretic", "arresting")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
 ```
+
 ```{r}
 models(so)
 ```
@@ -144,24 +170,29 @@ results_table = sleuth_results(so, 'conditionphoretic')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
 ### Аrresting vs. pre-laying
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("arresting", "prelaying")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("arresting", "prelaying")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -177,23 +208,29 @@ results_table = sleuth_results(so, 'conditionprelaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
 ### Pre-laying vs. Laying
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("prelaying", "laying")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("prelaying", "laying")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -209,23 +246,29 @@ results_table = sleuth_results(so, 'conditionprelaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
 ### Laying vs. post-laying
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("laying", "postlaying")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("laying", "postlaying")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -241,29 +284,32 @@ results_table = sleuth_results(so, 'conditionpostlaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
-
 ### Post-laying vs. Emerging
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("postlaying", "emerging")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("postlaying", "emerging")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
-
-sleuth_significant %>% left_join(bacteria, by = c("target_id" = "contig")) %>% dplyr::filter(!is.na(A)) %>% ggplot(aes(A))+geom_histogram(stat = "count") + scale_y_log10() + coord_flip()
 ```
 
 ```{r}
@@ -276,24 +322,29 @@ results_table = sleuth_results(so, 'conditionpostlaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
-
 ### Post-laying vs. non-laying
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("postlaying", "nonlaying")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("postlaying", "nonlaying")), extra_bootstrap_summary = TRUE)
+plot_pca(so, color_by = 'condition')
+```
+
+```{r}
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -309,24 +360,29 @@ results_table = sleuth_results(so, 'conditionpostlaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
+```
+### Laying vs. non-laying
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("laying", "nonlaying")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
 ```
 
-### Laying vs. non-laying
+```{r}
+plot_pca(so, color_by = 'condition')
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("laying", "nonlaying")), extra_bootstrap_summary = TRUE)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -342,24 +398,29 @@ results_table = sleuth_results(so, 'conditionnonlaying')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
+```
+### Emerging vs. Phoretic
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("emerging", "phoretic")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
 ```
 
-### Emerging vs. Phoretic
+```{r}
+plot_pca(so, color_by = 'condition')
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("emerging", "phoretic")), extra_bootstrap_summary = TRUE)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -375,24 +436,29 @@ results_table = sleuth_results(so, 'conditionphoretic')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
+```
+### Emerging vs. Young
+```{r}
+so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("emerging", "young")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
 ```
 
-### Emerging vs. Young
+```{r}
+plot_pca(so, color_by = 'condition')
+```
 
 ```{r}
-so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("emerging", "young")), extra_bootstrap_summary = TRUE)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
-sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+```
+
+```{r}
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt')
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 dim(sleuth_significant)
 head(sleuth_significant)
@@ -408,12 +474,9 @@ results_table = sleuth_results(so, 'conditionyoung')
 Number_DE_genes = table(results_table$qval <= 0.05)
 Number_DE_genes
 ```
-Number of up-regulated (TRUE) and down-regulated (FALSE) genes:
 ```{r}
-results_table
 DE_genes = subset(results_table, qval <= 0.05)
 DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
-
 ```
