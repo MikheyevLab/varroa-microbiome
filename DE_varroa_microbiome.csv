@@ -1,13 +1,13 @@
-﻿Stages,M_DE,M_up-regulated,M_down-regulated,V_DE,V_up-regulated,V_down-regulated,V2_DE,V2_up-regulated,V2_down-regulated
-males vs young,5397,1596,3801,19220,8328,10892,8069,2641,5428
-Young vs Phoretic,2852,1570,1282,12769,6846,5923,3374,1763,1611
-Phoretics vs caged,1,0,1,0,0,0,23,13,10
-Phoretic vs arresting,68,19,49,3514,1288,2226,100,36,64
-Arrest vs pre-laying,2866,1527,1339,9458,4769,4689,3715,1890,1825
-Pre-laying vs. Laying,4247,1951,2296,2683,1795,888,5666,2654,3012
-Laying vs. post-laying,2803,978,1105,9456,4077,5379,2851,1264,1587
-Post-laying vs. Emerging,619,322,297,3536,2135,1401,619,322,297
-Post-laying vs. Non-laying,5,3,2,2,2,0,4,1,3
-Laying vs Non-laying,2203,1903,1110,13065,5738,7327,2203,1093,1110
-Emerging vs Phoretic,571,219,352,1492,889,603,571,219,352
-Emerging vs Young,1870,1011,859,8947,4465,4482,1870,1011,859
+﻿Stages,M_DE,M_up-regulated,M_down-regulated,V_DE,V_up-regulated,V_down-regulated,V2_DE,V2_up-regulated,V2_down-regulated,V_gene_DE,V_gene_up-regulated,V_gene_down-regulated
+males vs young,5397,1596,3801,19220,8328,10892,8069,2641,5428,5759,2692,3067
+Young vs Phoretic,2852,1570,1282,12769,6846,5923,3374,1763,1611,4796,2463,2333
+Phoretics vs caged,1,0,1,0,0,0,23,13,10,51,27,24
+Phoretic vs arresting,68,19,49,3514,1288,2226,100,36,64,35,11,24
+Arrest vs pre-laying,1039,447,592,9458,4769,4689,2020,962,1058,3215,1647,1568
+Pre-laying vs. Laying,432,288,144,2683,1795,888,760,502,258,1473,799,674
+Laying vs. post-laying,2083,978,1105,9456,4077,5379,2851,1264,1587,3757,1741,2016
+Post-laying vs. Emerging,619,322,297,3536,2135,1401,700,292,408,1405,752,653
+Post-laying vs. Non-laying,5,3,2,2,2,0,4,1,3,2,2,0
+Laying vs Non-laying,2203,1093,1110,13065,5738,7327,3433,1529,1904,4602,2038,2564
+Emerging vs Phoretic,571,219,352,1492,889,603,600,352,248,866,448,418
+Emerging vs Young,1870,1011,859,8947,4465,4482,2505,1383,1122,4070,2135,1935
