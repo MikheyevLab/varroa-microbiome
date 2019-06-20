@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:1901987","regulation of cell cycle phase transitio...",7,7,7,1,"1","0.0054","0.0054"
+"GO:0044703","multi-organism reproductive process",12,12,12,2,"1","0.0092","0.0092"
+"GO:1901990","regulation of mitotic cell cycle phase t...",6,6,6,3,"1","0.0115","0.0115"
+"GO:0055114","oxidation-reduction process",15,15,15,4,"1","0.0120","0.0120"
+"GO:0019953","sexual reproduction",11,11,11,5,"1","0.0160","0.0160"

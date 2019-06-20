@@ -1,0 +1,12 @@
+﻿young,males
+young,phoretic
+phoretic,phoreticCaged
+phoretic,arresting
+arresting,prelaying
+prelaying,laying
+laying,postlaying
+postlaying,emerging
+postlaying,nonlaying
+laying,nonlaying
+emerging,phoretic
+emerging,young
