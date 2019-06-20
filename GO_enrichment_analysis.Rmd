@@ -1,8 +1,13 @@
 ---
 title: "GOterm enrichment analysis"
-author: 'Lazzat Aibekova'
+author: "Lazzat Aibekova"
 date: "June 11, 2019"
-output: html_document
+output:
+  html_document: default
+    toc: true
+    toc_depth: 3
+    number_section: 
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -26,6 +31,7 @@ samples <- tibble(id = dir(file.path("mondet/kallisto_mite"))) %>% mutate(path =
 t2g = read.csv("genebank_gene_map.csv", header=T)
 ```
 
+###LOOP STARTS HERE
 ```{r}
 so <- sleuth_prep(dplyr::filter(samples, shortName %in% c("young", "males")), target_mapping = t2g,aggregation_column = 'ens_gene', gene_mode = T)
 so <- sleuth_fit(so, ~condition, 'full')
@@ -38,13 +44,11 @@ DE_genes = subset(results_table, qval <= 0.05)
 #Table with up-regulated genes
 ```{r}
 up_regulated = subset(DE_genes, b > 0) #beta postive is up-regulated
-up_regulated
 ```
 
 #Table with down-regulated genes
 ```{r}
 down_regulated = subset(DE_genes, b < 0) #beta postive is up-regulated
-down_regulated
 ```
 
 ###Preapre inputs for sampleOGData of class topGOdata
