@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0051234","establishment of localization",3,3,3,1,"1","0.23","0.23"
+"GO:0051179","localization",4,4,4,2,"1","0.43","0.43"
+"GO:0034641","cellular nitrogen compound metabolic pro...",5,5,5,3,"1","0.47","0.47"
+"GO:0043170","macromolecule metabolic process",7,7,7,4,"1","0.69","0.69"
+"GO:0044260","cellular macromolecule metabolic process",7,7,7,5,"1","0.69","0.69"

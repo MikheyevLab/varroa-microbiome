@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0044271","cellular nitrogen compound biosynthetic ...",6,6,6,1,"1","0.063","0.063"
+"GO:0009058","biosynthetic process",8,8,8,2,"1","0.076","0.076"
+"GO:1901576","organic substance biosynthetic process",8,8,8,3,"1","0.076","0.076"
+"GO:0009987","cellular process",29,29,29,4,"1","0.084","0.084"
+"GO:0050789","regulation of biological process",13,13,13,5,"1","0.111","0.111"

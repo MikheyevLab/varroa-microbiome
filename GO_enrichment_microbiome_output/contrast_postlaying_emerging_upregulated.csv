@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0044281","small molecule metabolic process",3,3,3,1,"1","0.17","0.17"
+"GO:0009987","cellular process",7,7,7,2,"1","0.20","0.20"
+"GO:0006793","phosphorus metabolic process",3,3,3,3,"1","0.64","0.64"
+"GO:0006796","phosphate-containing compound metabolic ...",3,3,3,4,"1","0.64","0.64"
+"GO:0044237","cellular metabolic process",6,6,6,5,"1","0.64","0.64"

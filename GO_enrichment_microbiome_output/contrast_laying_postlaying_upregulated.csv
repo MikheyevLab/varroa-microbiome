@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0080090","regulation of primary metabolic process",3,3,3,1,"1","0.027","0.027"
+"GO:0006811","ion transport",5,5,5,2,"1","0.046","0.046"
+"GO:0055085","transmembrane transport",7,7,7,3,"1","0.089","0.089"
+"GO:0019222","regulation of metabolic process",4,4,4,4,"1","0.111","0.111"
+"GO:0006812","cation transport",3,3,3,5,"1","0.176","0.176"

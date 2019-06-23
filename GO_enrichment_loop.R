@@ -51,7 +51,6 @@ for (id in 10:length(contrast$V1))
   results_table = sleuth_results(so, cond)
   DE_genes = subset(results_table, qval <= 0.05)
 
-  #LOOP through up- down- regulated
   up_regulated = subset(DE_genes, b > 0) #beta postive is up-regulated
 
   #Preapre inputs for sampleOGData of class topGOdata
@@ -62,7 +61,7 @@ for (id in 10:length(contrast$V1))
 
 
   #Build sampleOGdata
-  sampleGOdata <- new("topGOdata", description = "Simple session", ontology = "BP", allGenes = geneList, geneSel = topDiffGenes,  nodeSize = 3, annot = annFUN.gene2GO, gene2GO = gene2GO)
+  sampleGOdata <- new("topGOdata", description = "Simple session", ontology = "BP", allGenes = geneList, geneSel = topDiffGenes,  nodeSize = 1, annot = annFUN.gene2GO, gene2GO = gene2GO)
 
   #Fisher's exact test - based on gene counts
   resultFisher <- runTest(sampleGOdata, algorithm = "classic", statistic = "fisher")
@@ -71,7 +70,7 @@ for (id in 10:length(contrast$V1))
   resultKS <- runTest(sampleGOdata, algorithm = "classic", statistic = "ks")
   resultKS.elim <- runTest(sampleGOdata, algorithm = "elim", statistic = "ks")
 
-  allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = 10)
+  allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = 5)
 
   filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".csv", sep = "")
   write.csv(allRes, file = filename, row.names = F)
@@ -110,7 +109,7 @@ for (id in 10:length(contrast$V1))
     resultKS <- runTest(sampleGOdata, algorithm = "classic", statistic = "ks")
     resultKS.elim <- runTest(sampleGOdata, algorithm = "elim", statistic = "ks")
 
-    allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = 10)
+    allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = 5)
 
     filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".csv", sep = "")
     write.csv(allRes, file = filename, row.names = F)

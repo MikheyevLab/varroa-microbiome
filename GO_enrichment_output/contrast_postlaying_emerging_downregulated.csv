@@ -4,8 +4,3 @@
 "GO:0071804","cellular potassium ion transport",3,3,3,3,"1","0.0112","0.0112"
 "GO:0071805","potassium ion transmembrane transport",3,3,3,4,"1","0.0112","0.0112"
 "GO:0001654","eye development",9,9,9,5,"1","0.0261","0.0261"
-"GO:0048880","sensory system development",9,9,9,6,"1","0.0261","0.0261"
-"GO:0150063","visual system development",9,9,9,7,"1","0.0261","0.0261"
-"GO:0001895","retina homeostasis",4,4,4,8,"1","0.0275","0.0275"
-"GO:0000278","mitotic cell cycle",8,8,8,9,"1","0.0327","0.0327"
-"GO:0042060","wound healing",8,8,8,10,"1","0.0327","0.0327"

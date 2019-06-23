@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0065007","biological regulation",11,11,11,1,"1","0.020","0.020"
+"GO:0050789","regulation of biological process",10,10,10,2,"1","0.038","0.038"
+"GO:0019222","regulation of metabolic process",5,5,5,3,"1","0.099","0.099"
+"GO:0048519","negative regulation of biological proces...",5,5,5,4,"1","0.099","0.099"
+"GO:0060255","regulation of macromolecule metabolic pr...",5,5,5,5,"1","0.099","0.099"

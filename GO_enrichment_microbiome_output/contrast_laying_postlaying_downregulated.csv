@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0055114","oxidation-reduction process",3,3,3,1,"1","0.12","0.12"
+"GO:0005975","carbohydrate metabolic process",4,4,4,2,"1","0.12","0.12"
+"GO:0006396","RNA processing",3,3,3,3,"1","0.35","0.35"
+"GO:0008152","metabolic process",23,23,23,4,"1","0.39","0.39"
+"GO:0009056","catabolic process",3,3,3,5,"1","0.40","0.40"

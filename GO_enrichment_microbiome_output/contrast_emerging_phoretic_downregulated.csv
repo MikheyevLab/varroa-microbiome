@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0009987","cellular process",3,3,3,1,"1","0.086","0.086"
+"GO:0050789","regulation of biological process",3,3,3,2,"1","0.278","0.278"
+"GO:0065007","biological regulation",3,3,3,3,"1","0.278","0.278"
+"GO:0008152","metabolic process",7,7,7,4,"1","0.591","0.591"
+"GO:0006810","transport",3,3,3,5,"1","0.761","0.761"

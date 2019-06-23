@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0044249","cellular biosynthetic process",18,18,18,1,"1","0.15","0.15"
+"GO:0006357","regulation of transcription by RNA polym...",4,4,4,2,"1","0.16","0.16"
+"GO:0044267","cellular protein metabolic process",15,15,15,3,"1","0.19","0.19"
+"GO:0006366","transcription by RNA polymerase II",6,6,6,4,"1","0.23","0.23"
+"GO:0006725","cellular aromatic compound metabolic pro...",17,17,17,5,"1","0.26","0.26"

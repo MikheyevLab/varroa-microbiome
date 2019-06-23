@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0006810","transport",13,13,13,1,"1","0.21","0.21"
+"GO:0051179","localization",13,13,13,2,"1","0.21","0.21"
+"GO:0051234","establishment of localization",13,13,13,3,"1","0.21","0.21"
+"GO:0055085","transmembrane transport",9,9,9,4,"1","0.26","0.26"
+"GO:0009653","anatomical structure morphogenesis",3,3,3,5,"1","0.52","0.52"

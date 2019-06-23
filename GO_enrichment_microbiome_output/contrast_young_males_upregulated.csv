@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0055085","transmembrane transport",9,9,9,1,"1","0.035","0.035"
+"GO:0006810","transport",15,15,15,2,"1","0.045","0.045"
+"GO:0042592","homeostatic process",4,4,4,3,"1","0.070","0.070"
+"GO:0051179","localization",16,16,16,4,"1","0.103","0.103"
+"GO:0051234","establishment of localization",16,16,16,5,"1","0.103","0.103"
