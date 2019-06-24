@@ -37,7 +37,7 @@ contrast = read.csv("contrasts_mite_life_stages.csv", header = F)
 gene2GO = readMappings2("GOterm/vdesgoassoc.csv")
 
 #LOOP trhough contrasts
-for (id in 10:length(contrast$V1))
+for (id in 1:length(contrast$V1))
 {
   print(paste(id, "id"))
   first_contrast = toString(contrast$V1[id])
@@ -51,7 +51,7 @@ for (id in 10:length(contrast$V1))
   results_table = sleuth_results(so, cond)
   DE_genes = subset(results_table, qval <= 0.05)
 
-  up_regulated = subset(DE_genes, b > 0) #beta postive is up-regulated
+  up_regulated = subset(results_table, b > 0) #beta postive is up-regulated
 
   #Preapre inputs for sampleOGData of class topGOdata
   geneList = up_regulated[,2]
@@ -61,7 +61,7 @@ for (id in 10:length(contrast$V1))
 
 
   #Build sampleOGdata
-  sampleGOdata <- new("topGOdata", description = "Simple session", ontology = "BP", allGenes = geneList, geneSel = topDiffGenes,  nodeSize = 1, annot = annFUN.gene2GO, gene2GO = gene2GO)
+  sampleGOdata <- new("topGOdata", description = "Simple session", ontology = "BP", allGenes = geneList, geneSel = topDiffGenes,  nodeSize = 3, annot = annFUN.gene2GO, gene2GO = gene2GO)
 
   #Fisher's exact test - based on gene counts
   resultFisher <- runTest(sampleGOdata, algorithm = "classic", statistic = "fisher")
@@ -90,7 +90,7 @@ for (id in 10:length(contrast$V1))
   showSigOfNodes(sampleGOdata, score(resultKS.elim), firstSigNodes = 5, useInfo = 'all')
 
 
-  down_regulated = subset(DE_genes, b < 0) #beta postive is up-regulated
+  down_regulated = subset(results_table, b < 0) #beta postive is up-regulated
 
     #Preapre inputs for sampleOGData of class topGOdata
     geneList = down_regulated[,2]

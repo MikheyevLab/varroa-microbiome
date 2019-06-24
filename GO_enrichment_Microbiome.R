@@ -43,9 +43,9 @@ for (id in 1:length(contrast$V1))
   cond = colnames(so$fits$full$design_matrix)[2]
   so = sleuth_wt(so, cond)
   results_table = sleuth_results(so, cond)
-  DE_genes = subset(results_table, qval <= 0.05)
+  #DE_genes = subset(results_table, qval <= 0.05)
   #UP-REGULATED
-  up_regulated = subset(DE_genes, b > 0) #beta postive is up-regulated
+  up_regulated = subset(results_table, b > 0) #beta postive is up-regulated
 
   #Preapre inputs for sampleOGData of class topGOdata
   geneList = up_regulated[,2]
@@ -82,7 +82,7 @@ for (id in 1:length(contrast$V1))
   showSigOfNodes(sampleGOdata, score(resultKS.elim), firstSigNodes = 5, useInfo = 'all')
 
   #DOWN-REGULATED
-  down_regulated = subset(DE_genes, b < 0) #beta negative is down-regulated
+  down_regulated = subset(results_table, b < 0) #beta negative is down-regulated
 
   #Preapre inputs for sampleOGData of class topGOdata
   geneList = down_regulated[,2]

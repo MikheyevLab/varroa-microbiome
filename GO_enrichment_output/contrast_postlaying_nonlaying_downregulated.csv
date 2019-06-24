@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0030336","negative regulation of cell migration",11,4,0.66,1,"0.0029","0.00027","0.00027"
+"GO:0007165","signal transduction",450,32,27.02,130,"0.1588","0.00068","0.00096"
+"GO:0009913","epidermal cell differentiation",6,0,0.36,1191,"1.0000","0.00152","0.00152"
+"GO:0006468","protein phosphorylation",188,11,11.29,803,"0.5855","0.00355","0.00355"
+"GO:0046903","secretion",59,7,3.54,57,"0.0600","0.00579","0.00579"
