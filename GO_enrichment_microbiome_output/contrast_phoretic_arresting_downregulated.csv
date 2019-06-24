@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0006974","cellular response to DNA damage stimulus",5,3,1.04,2,"0.062","0.0081","0.0081"
+"GO:0006281","DNA repair",4,2,0.83,10,"0.192","0.0216","0.0216"
+"GO:0099173","postsynapse organization",4,1,0.83,118,"0.610","0.0318","0.0318"
+"GO:0006259","DNA metabolic process",7,3,1.46,6,"0.159","0.0371","0.0371"
+"GO:0007155","cell adhesion",6,2,1.25,28,"0.365","0.0557","0.0557"

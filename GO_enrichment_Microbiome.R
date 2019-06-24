@@ -30,7 +30,7 @@ samples <- tibble(id = dir(file.path("mondet/kallisto"))) %>% mutate(path = past
 contrast = read.csv("contrasts_mite_life_stages.csv", header = F)
 gene2GO = readMappings2("GOterm/vdesgoassoc.csv")
 t2g = read.csv("IDrna_gene_map.csv", header=T)
-for (id in 1:length(contrast$V1))
+for (id in 4:length(contrast$V1))
 {
   print(paste(id, "id"))
   first_contrast = toString(contrast$V1[id])

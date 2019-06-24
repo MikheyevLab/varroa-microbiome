@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0051716","cellular response to stimulus",42,5,2.85,13,"0.131","0.0036","0.0036"
+"GO:0008033","tRNA processing",3,2,0.2,1,"0.012","0.0056","0.0056"
+"GO:0007154","cell communication",29,4,1.97,11,"0.116","0.0099","0.0099"
+"GO:0048523","negative regulation of cellular process",17,2,1.16,53,"0.324","0.0143","0.0143"
+"GO:0048519","negative regulation of biological proces...",21,2,1.43,67,"0.429","0.0168","0.0168"

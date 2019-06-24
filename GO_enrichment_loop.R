@@ -38,7 +38,7 @@ gene2GO = readMappings2("GOterm/vdesgoassoc.csv")
 
 #LOOP trhough contrasts
 for (id in 1:length(contrast$V1))
-{
+{ 
   print(paste(id, "id"))
   first_contrast = toString(contrast$V1[id])
   second_contrast = toString(contrast$V2[id])
@@ -100,7 +100,7 @@ for (id in 1:length(contrast$V1))
 
 
     #Build sampleOGdata
-    sampleGOdata <- new("topGOdata", description = "Simple session", ontology = "BP", allGenes = geneList, geneSel = topDiffGenes,  nodeSize = 3, annot = annFUN.gene2GO, gene2GO = gene2GO)
+    sampleGOdata <- new("topGOdata", description = "Simple session", ontology = "BP", allGenes = geneList, geneSel = topDiffGenes,  nodeSize = 10, annot = annFUN.gene2GO, gene2GO = gene2GO)
 
     #Fisher's exact test - based on gene counts
     resultFisher <- runTest(sampleGOdata, algorithm = "classic", statistic = "fisher")

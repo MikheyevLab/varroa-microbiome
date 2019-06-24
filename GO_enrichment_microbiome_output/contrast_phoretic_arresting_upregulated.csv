@@ -1,0 +1,6 @@
+"GO.ID","Term","Annotated","Significant","Expected","Rank in classicFisher","classicFisher","classicKS","elimKS"
+"GO:0032989","cellular component morphogenesis",5,0,0.56,125,"1","0.011","0.011"
+"GO:0009792","embryo development ending in birth or eg...",5,0,0.56,126,"1","0.017","0.017"
+"GO:0048468","cell development",9,0,1,127,"1","0.026","0.026"
+"GO:0000902","cell morphogenesis",4,0,0.44,128,"1","0.028","0.028"
+"GO:0000904","cell morphogenesis involved in different...",4,0,0.44,129,"1","0.028","0.028"
