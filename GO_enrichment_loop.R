@@ -50,7 +50,7 @@ for (id in 1:length(contrast$V1))
   so = sleuth_wt(so, cond)
   results_table = sleuth_results(so, cond)
   DE_genes = subset(results_table, qval <= 0.05)
-
+#UP-REGULATED
   up_regulated = subset(results_table, b > 0) #beta postive is up-regulated
 
   #Preapre inputs for sampleOGData of class topGOdata
@@ -69,27 +69,14 @@ for (id in 1:length(contrast$V1))
   #Kolmogorov_smirnov - based on gene scores
   resultKS <- runTest(sampleGOdata, algorithm = "classic", statistic = "ks")
   resultKS.elim <- runTest(sampleGOdata, algorithm = "elim", statistic = "ks")
-
-  allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = 5)
+  allGO = usedGO(sampleGOdata)
+  allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = length(allGO))
 
   filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".csv", sep = "")
   write.csv(allRes, file = filename, row.names = F)
 
-  pValue.classic <- score(resultKS)
-  pValue.elim <- score(resultKS.elim)[names(pValue.classic)]
-  gstat <- termStat(sampleGOdata, names(pValue.classic))
-  gSize <- gstat$Annotated / max(gstat$Annotated) * 4
-  gCol <- colMap(gstat$Significant)
 
-  plotfile = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".png", sep = "")
-  png(filename=plotfile)
-  plot(pValue.classic, pValue.elim, xlab = "p-value classic", ylab = "p-value elim",
-       pch = 19, cex = gSize, col = gCol, main=paste(first_contrast, second_contrast, "up regulated"))
-  dev.off()
-
-  showSigOfNodes(sampleGOdata, score(resultKS.elim), firstSigNodes = 5, useInfo = 'all')
-
-
+  #DOWN-REGULATED
   down_regulated = subset(results_table, b < 0) #beta postive is up-regulated
 
     #Preapre inputs for sampleOGData of class topGOdata
@@ -108,25 +95,13 @@ for (id in 1:length(contrast$V1))
     #Kolmogorov_smirnov - based on gene scores
     resultKS <- runTest(sampleGOdata, algorithm = "classic", statistic = "ks")
     resultKS.elim <- runTest(sampleGOdata, algorithm = "elim", statistic = "ks")
-
-    allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = 5)
+    allGO = usedGO(sampleGOdata)
+    allRes <- GenTable(sampleGOdata, classicFisher = resultFisher, classicKS = resultKS, elimKS = resultKS.elim, orderBy = "elimKS", ranksOf = "classicFisher", topNodes = length(allGO))
 
     filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".csv", sep = "")
     write.csv(allRes, file = filename, row.names = F)
 
-    pValue.classic <- score(resultKS)
-    pValue.elim <- score(resultKS.elim)[names(pValue.classic)]
-    gstat <- termStat(sampleGOdata, names(pValue.classic))
-    gSize <- gstat$Annotated / max(gstat$Annotated) * 4
-    gCol <- colMap(gstat$Significant)
 
-    plotfile = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".png", sep = "")
-    png(filename=plotfile)
-    plot(pValue.classic, pValue.elim, xlab = "p-value classic", ylab = "p-value elim",
-         pch = 19, cex = gSize, col = gCol, main=paste(first_contrast, second_contrast, "down regulated"))
-    dev.off()
-
-    showSigOfNodes(sampleGOdata, score(resultKS.elim), firstSigNodes = 5, useInfo = 'all')
 
 }
 
