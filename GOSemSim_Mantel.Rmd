@@ -44,7 +44,7 @@ for(i in 1:(length(contrast$V1)-1))
 }
 ```
 ###MICROBIOME
-```{r cachedChunk, cache=TRUE}
+```{r, cache=TRUE}
 GOSEMSIM_matrix_microbiome_up = matrix(0, 12, nrow=12)
 
 for(i in 1:(length(contrast$V1)-1))
@@ -68,7 +68,7 @@ for(i in 1:(length(contrast$V1)-1))
 }
 ```
 
-```{r cachedChunk, cache=TRUE}
+```{r, cache=TRUE}
 microb_dist_up = as.dist(t(GOSEMSIM_matrix_microbiome_up))
 mite_dist_up = as.dist(t(GOSEMSIM_matrix_mite_up))
 mantel(mite_dist_up, microb_dist_up)
@@ -81,7 +81,7 @@ write.csv(as.data.frame(GOSEMSIM_matrix_mite_up), "GOSEMSIM_matrix_mite_up.csv")
 
 #DOWN_REGULATED
 ##MITE
-```{r cachedChunk, cache=TRUE}
+```{r, cache=TRUE}
 GOSEMSIM_matrix_mite_down = matrix(0, 12, nrow=12)
 
 for(i in 1:(length(contrast$V1)-1))
@@ -105,7 +105,7 @@ for(i in 1:(length(contrast$V1)-1))
 }
 ```
 ###MICROBIOME
-```{r cachedChunk, cache=TRUE}
+```{r, cache=TRUE}
 GOSEMSIM_matrix_microbiome_down = matrix(0, 12, nrow=12)
 
 for(i in 1:(length(contrast$V1)-1))
@@ -129,7 +129,7 @@ for(i in 1:(length(contrast$V1)-1))
 }
 ```
 
-```{r cachedChunk, cache=TRUE}
+```{r, cache=TRUE}
 microb_dist_down = as.dist(t(GOSEMSIM_matrix_microbiome_down))
 mite_dist_down = as.dist(t(GOSEMSIM_matrix_mite_down))
 mantel(mite_dist_down, microb_dist_down)
@@ -139,8 +139,30 @@ mantel(mite_dist_down, microb_dist_down)
 write.csv(as.data.frame(GOSEMSIM_matrix_microbiome_down), "GOSEMSIM_matrix_microbiome_down.csv")
 write.csv(as.data.frame(GOSEMSIM_matrix_mite_down), "GOSEMSIM_matrix_mite_down.csv")
 ```
-
-```{r cachedChunk, cache=TRUE}
+#To plot the correlation
+```{r, cache=TRUE}
 plot(microb_dist_down,mite_dist_down, main = "Down-regulated GO term correlation plot")
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+library(grid)
+
+library(lattice)
+
+microbiome_up = as.dist(t(read.csv("GOSEMSIM_matrix_microbiome_up.csv", header = T, row.names = 1)))
+mite_up = as.dist(t(read.csv("GOSEMSIM_matrix_mite_up.csv", header = T, row.names = 1)))
+
+microbiome_down = as.dist(t(read.csv("GOSEMSIM_matrix_microbiome_down.csv", header = T, row.names = 1)))
+mite_down = as.dist(t(read.csv("GOSEMSIM_matrix_mite_down.csv", header = T, row.names = 1)))
+
+plot(microbiome_up, mite_up)
+par(new = T)
+plot(microbiome_down, mite_down)
+p1 = qplot(microbiome_down, mite_down)
+p2 = qplot(microbiome_up, mite_up)
+grid.arrange(p1, p2, nrow = 2)
+
 ```
 
