@@ -1,0 +1,9 @@
+{
+	"n_targets": 35641,
+	"n_bootstraps": 100,
+	"n_processed": 19908519,
+	"kallisto_version": "0.43.0",
+	"index_version": 10,
+	"start_time": "Tue Jun  4 11:24:33 2019",
+	"call": "kallisto quant -i Vdes_transcripts.idx -o /work/MikheyevU/Lazzat/mondet/kallisto/SRR5760839 -b 100 --single -l 350 -s 200 SRR5760839_1.fastq.gz"
+}

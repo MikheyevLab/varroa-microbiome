@@ -1,0 +1,41 @@
+id	colony	life_cycle_stage	shortName
+SRR5760812	R204	arresting mites (collected in unsealed L5 brood cells)	arresting
+SRR5760813	R204	pre-laying mites (collected from sealed brood cells containing moving larva)	prelaying
+SRR5760814	R204	laying mites (collected from sealed brood cells containing pre-pupae)	laying
+SRR5760815	R204	"non-reproducing mites (collected from P5 brood cells, but without offspring)"	nonlaying
+SRR5760816	R204	emerging mites (collected from P8 to P9 brood cells)	emerging
+SRR5760817	R204	young mites (collected from P8 to P9 brood cells)	young
+SRR5760818	R204	males (collected from P8 to P9 brood cells)	males
+SRR5760819	R204	phoretic mites (collected on adult bees)	phoretic
+SRR5760820	R204	phoretic mites artificially reared in cages with adult bees	phoreticCaged
+SRR5760821	R204	post-laying mites (collected from capped brood cells containing purple-eye and white-body pupae P5)	postlaying
+SRR5760822	R245	arresting mites (collected in unsealed L5 brood cells)	arresting
+SRR5760823	R245	pre-laying mites (collected from sealed brood cells containing moving larva)	prelaying
+SRR5760824	R245	laying mites (collected from sealed brood cells containing pre-pupae)	laying
+SRR5760825	R245	"non-reproducing mites (collected from P5 brood cells, but without offspring)"	nonlaying
+SRR5760826	R245	emerging mites (collected from P8 to P9 brood cells)	emerging
+SRR5760827	R245	young mites (collected from P8 to P9 brood cells)	young
+SRR5760828	R245	males (collected from P8 to P9 brood cells)	males
+SRR5760829	R245	phoretic mites (collected on adult bees)	phoretic
+SRR5760830	R245	phoretic mites artificially reared in cages with adult bees	phoreticCaged
+SRR5760831	R245	post-laying mites (collected from capped brood cells containing purple-eye and white-body pupae P5)	postlaying
+SRR5760832	R41	arresting mites (collected in unsealed L5 brood cells)	arresting
+SRR5760833	R41	pre-laying mites (collected from sealed brood cells containing moving larva)	prelaying
+SRR5760834	R41	laying mites (collected from sealed brood cells containing pre-pupae)	laying
+SRR5760835	R41	"non-reproducing mites (collected from P5 brood cells, but without offspring)"	nonlaying
+SRR5760836	R41	emerging mites (collected from P8 to P9 brood cells)	emerging
+SRR5760837	R41	young mites (collected from P8 to P9 brood cells)	young
+SRR5760838	R41	males (collected from P8 to P9 brood cells)	males
+SRR5760839	R41	phoretic mites (collected on adult bees)	phoretic
+SRR5760840	R41	phoretic mites artificially reared in cages with adult bees	phoreticCaged
+SRR5760841	R41	post-laying mites (collected from capped brood cells containing purple-eye and white-body pupae P5)	postlaying
+SRR5760842	R78	arresting mites (collected in unsealed L5 brood cells)	arresting
+SRR5760843	R78	pre-laying mites (collected from sealed brood cells containing moving larva)	prelaying
+SRR5760844	R78	laying mites (collected from sealed brood cells containing pre-pupae)	laying
+SRR5760845	R78	"non-reproducing mites (collected from P5 brood cells, but without offspring)"	nonlaying
+SRR5760846	R78	emerging mites (collected from P8 to P9 brood cells)	emerging
+SRR5760847	R78	young mites (collected from P8 to P9 brood cells)	young
+SRR5760848	R78	males (collected from P8 to P9 brood cells)	males
+SRR5760849	R78	phoretic mites (collected on adult bees)	phoretic
+SRR5760850	R78	phoretic mites artificially reared in cages with adult bees	phoreticCaged
+SRR5760851	R78	post-laying mites (collected from capped brood cells containing purple-eye and white-body pupae P5)	postlaying

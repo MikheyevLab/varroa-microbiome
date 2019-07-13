@@ -1,0 +1,13 @@
+{
+	"n_targets": 354418,
+	"n_bootstraps": 100,
+	"n_processed": 21519896,
+	"n_pseudoaligned": 2695144,
+	"n_unique": 2670272,
+	"p_pseudoaligned": 12.5,
+	"p_unique": 12.4,
+	"kallisto_version": "0.44.0",
+	"index_version": 10,
+	"start_time": "Wed Jan 23 14:11:02 2019",
+	"call": "kallisto quant -b 100 -s 200 -l 350 -t 4 --single -o data/mondet/kallisto/SRR5760834 -i ref/megahitMerged data/mondet/SRR5760834_1.fastq.gz"
+}

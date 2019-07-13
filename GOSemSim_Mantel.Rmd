@@ -1,0 +1,168 @@
+---
+title: "GOSemSim_mantel"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T)
+```
+
+```{r}
+library(GOSemSim)
+library(org.Dm.eg.db)
+library(vegan)
+```
+###Reference for Fly
+```{r}
+d = godata('org.Dm.eg.db', ont = "BP", computeIC = FALSE)
+contrast = read.csv("contrasts_mite_life_stages.csv", header = F)
+```
+
+#UP_REGULATED
+##MITE
+```{r cachedChunk, cache=TRUE}
+GOSEMSIM_matrix_mite_up = matrix(0, 12, nrow=12)
+
+for(i in 1:(length(contrast$V1)-1))
+{
+  first_contrast = toString(contrast$V1[i])
+  second_contrast = toString(contrast$V2[i])
+  filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".csv", sep = "")
+  GO1 = read.csv(filename, header = T)
+  GO1ID = as.character(GO1[,1])
+
+  for(j in (i+1):length(contrast$V1))
+  {
+    print(paste(i, j))
+    first_contrast = toString(contrast$V1[j])
+    second_contrast = toString(contrast$V2[j])
+    filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".csv", sep = "")
+    GO2 = read.csv(filename, header = T)
+    GO2ID = as.character(GO2[,1])
+    GOSEMSIM_matrix_mite_up[i,j] <- mgoSim(GO1ID, GO2ID, semData = d, measure = "Wang", combine = "BMA")
+  }
+}
+```
+###MICROBIOME
+```{r, cache=TRUE}
+GOSEMSIM_matrix_microbiome_up = matrix(0, 12, nrow=12)
+
+for(i in 1:(length(contrast$V1)-1))
+{
+  first_contrast = toString(contrast$V1[i])
+  second_contrast = toString(contrast$V2[i])
+  filename = paste("./GO_enrichment_microbiome_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".csv", sep = "")
+  GO1 = read.csv(filename, header = T)
+  GO1ID = as.character(GO1[,1])
+
+  for(j in (i+1):(length(contrast$V1)))
+  {
+    print(paste(i, j))
+    first_contrast = toString(contrast$V1[j])
+    second_contrast = toString(contrast$V2[j])
+    filename = paste("./GO_enrichment_microbiome_output/contrast_", first_contrast, "_", second_contrast, "_upregulated", ".csv", sep = "")
+    GO2 = read.csv(filename, header = T)
+    GO2ID = as.character(GO2[,1])
+    GOSEMSIM_matrix_microbiome_up[i,j] <- mgoSim(GO1ID, GO2ID, semData = d, measure = "Wang", combine = "BMA")
+  }
+}
+```
+
+```{r, cache=TRUE}
+microb_dist_up = as.dist(t(GOSEMSIM_matrix_microbiome_up))
+mite_dist_up = as.dist(t(GOSEMSIM_matrix_mite_up))
+mantel(mite_dist_up, microb_dist_up)
+```
+
+```{r}
+write.csv(as.data.frame(GOSEMSIM_matrix_microbiome_up), "GOSEMSIM_matrix_microbiome_up.csv")
+write.csv(as.data.frame(GOSEMSIM_matrix_mite_up), "GOSEMSIM_matrix_mite_up.csv")
+```
+
+#DOWN_REGULATED
+##MITE
+```{r, cache=TRUE}
+GOSEMSIM_matrix_mite_down = matrix(0, 12, nrow=12)
+
+for(i in 1:(length(contrast$V1)-1))
+{
+  first_contrast = toString(contrast$V1[i])
+  second_contrast = toString(contrast$V2[i])
+  filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".csv", sep = "")
+  GO1 = read.csv(filename, header = T)
+  GO1ID = as.character(GO1[,1])
+
+  for(j in (i+1):length(contrast$V1))
+  {
+    print(paste(i, j))
+    first_contrast = toString(contrast$V1[j])
+    second_contrast = toString(contrast$V2[j])
+    filename = paste("./GO_enrichment_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".csv", sep = "")
+    GO2 = read.csv(filename, header = T)
+    GO2ID = as.character(GO2[,1])
+    GOSEMSIM_matrix_mite_down[i,j] <- mgoSim(GO1ID, GO2ID, semData = d, measure = "Wang", combine = "BMA")
+  }
+}
+```
+###MICROBIOME
+```{r, cache=TRUE}
+GOSEMSIM_matrix_microbiome_down = matrix(0, 12, nrow=12)
+
+for(i in 1:(length(contrast$V1)-1))
+{
+  first_contrast = toString(contrast$V1[i])
+  second_contrast = toString(contrast$V2[i])
+  filename = paste("./GO_enrichment_microbiome_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".csv", sep = "")
+  GO1 = read.csv(filename, header = T)
+  GO1ID = as.character(GO1[,1])
+
+  for(j in (i+1):(length(contrast$V1)))
+  {
+    print(paste(i, j))
+    first_contrast = toString(contrast$V1[j])
+    second_contrast = toString(contrast$V2[j])
+    filename = paste("./GO_enrichment_microbiome_output/contrast_", first_contrast, "_", second_contrast, "_downregulated", ".csv", sep = "")
+    GO2 = read.csv(filename, header = T)
+    GO2ID = as.character(GO2[,1])
+    GOSEMSIM_matrix_microbiome_down[i,j] <- mgoSim(GO1ID, GO2ID, semData = d, measure = "Wang", combine = "BMA")
+  }
+}
+```
+
+```{r, cache=TRUE}
+microb_dist_down = as.dist(t(GOSEMSIM_matrix_microbiome_down))
+mite_dist_down = as.dist(t(GOSEMSIM_matrix_mite_down))
+mantel(mite_dist_down, microb_dist_down)
+```
+
+```{r}
+write.csv(as.data.frame(GOSEMSIM_matrix_microbiome_down), "GOSEMSIM_matrix_microbiome_down.csv")
+write.csv(as.data.frame(GOSEMSIM_matrix_mite_down), "GOSEMSIM_matrix_mite_down.csv")
+```
+#To plot the correlation
+```{r, cache=TRUE}
+plot(microb_dist_down,mite_dist_down, main = "Down-regulated GO term correlation plot")
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+library(grid)
+
+library(lattice)
+
+microbiome_up = as.dist(t(read.csv("GOSEMSIM_matrix_microbiome_up.csv", header = T, row.names = 1)))
+mite_up = as.dist(t(read.csv("GOSEMSIM_matrix_mite_up.csv", header = T, row.names = 1)))
+
+microbiome_down = as.dist(t(read.csv("GOSEMSIM_matrix_microbiome_down.csv", header = T, row.names = 1)))
+mite_down = as.dist(t(read.csv("GOSEMSIM_matrix_mite_down.csv", header = T, row.names = 1)))
+
+plot(microbiome_up, mite_up)
+par(new = T)
+plot(microbiome_down, mite_down)
+p1 = qplot(microbiome_down, mite_down)
+p2 = qplot(microbiome_up, mite_up)
+grid.arrange(p1, p2, nrow = 2)
+
+```
+
