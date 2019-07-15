@@ -1,0 +1,45 @@
+﻿sample,group,species,country,location,site.code,origin,lat,long,date,host,r1,r2,Wolbachia present
+VD212,VD212,Varroa destructor,South Korea,"Gwangju, Jeonlabug Prov",KOR02,single colony,35.15954,126.8526,Jan-96,Apis cerana,data/reads/VD212.1.fastq.gz,data/reads/VD212.2.fastq.gz,yes
+VD625_2,VD625_2,Varroa destructor,China,"Fengman, Lishu Co., Changchun, Jilin Prov.",CHN02,single colony,43.8216,126.56227,May-01,Apis mellifera,data/reads/VD625_2.1.fastq.gz,data/reads/VD625_2.2.fastq.gz,yes
+VD642_1,VD642_1,Varroa destructor,China,"Zhuhai county, Guangdong Prov.",CHN08,single colony,22.61401,112.63183,Nov-01,Apis cerana,data/reads/VD642_1.1.fastq.gz,data/reads/VD642_1.2.fastq.gz,yes
+VD780,VD780,Varroa jacobsoni,Vietnam,"Chauthanh Village, Bentra District",VNM06,single colony,10.30483,106.3552,Mar-03,Apis cerana,data/reads/VD780.1.fastq.gz,data/reads/VD780.2.fastq.gz,yes
+VD788_1,VD788_1,Varroa jacobsoni,Vietnam,"My tho City, Kien Giang",VNM05,single colony,10.37652,106.34388,Aug-04,Apis cerana,data/reads/VD788_1_V2.1.fastq.gz,data/reads/VD788_1_V2.2.fastq.gz,yes
+VD788_2,VD788_2,Varroa jacobsoni,Vietnam,"My tho City, Kien Giang",VNM05,single colony,10.37652,106.34388,Aug-04,Apis cerana,data/reads/VD788_2.1.fastq.gz,data/reads/VD788_2.2.fastq.gz,yes
+VD789_1,VD789_1,Varroa jacobsoni,Vietnam,"Giong Trom Town, Ben Tre",VNM07,single colony,10.15718,106.50445,Aug-04,Apis cerana,data/reads/VD789_1.1.fastq.gz,data/reads/VD789_1.2.fastq.gz,yes
+VJ347_1,VJ347_1,Varroa jacobsoni,Indonesia,Cililin,IDN03,single colony,-6.98345,107.43608,Jun-98,Apis cerana,data/reads/VJ347_1.1.fastq.gz,data/reads/VJ347_1.2.fastq.gz,yes
+VJ952_1,VJ952_1,Varroa jacobsoni,Papua New Guinea,"Amayufa, Eastern Highlands Prov.",PNG05,single colony,-5.99027,145.32528,May-14,Apis mellifera,data/reads/VJ952_1.1.fastq.gz,data/reads/VJ952_1.2.fastq.gz,yes
+VD149,VD149,Varroa destructor,Vietnam,"Phjong, Ninh Binh Prov",VNM01,single colony,21.18197,106.00161,Oct-96,Apis cerana,data/reads/VD149.1.fastq.gz,data/reads/VD149.2.fastq.gz,no
+VD150_2,VD150_2,Varroa destructor,Vietnam,Nho Quan,VNM03,single colony,20.32263,105.7496,Oct-96,Apis mellifera,data/reads/VD150_2.1.fastq.gz,data/reads/VD150_2.2.fastq.gz,no
+VD153_2,VD153_2,Varroa destructor,South Korea,Jungup,KOR01,single colony,35.56988,126.85589,Oct-96,Apis mellifera,data/reads/VD153_2.1.fastq.gz,data/reads/VD153_2.2.fastq.gz,no
+VD159_1,VD159_1,Varroa destructor,South Korea,Jungup,KOR01,single colony,35.56988,126.85589,Oct-96,Apis mellifera,data/reads/VD159_1.1.fastq.gz,data/reads/VD159_1.2.fastq.gz,no
+VD474_1,VD474_1,Varroa destructor,Vietnam,Hoc Chau,VNM02,single colony,20.92208,104.75209,Jan-98,Apis mellifera,data/reads/VD474_1.1.fastq.gz,data/reads/VD474_1.2.fastq.gz,no
+VD475_1,VD475_1,Varroa destructor,Vietnam,Hoc Chau,VNM02,single colony,20.92208,104.75209,Nov-98,Apis cerana,data/reads/VD475_1.1.fastq.gz,data/reads/VD475_1.2.fastq.gz,no
+VD577_1,VD577_1,Varroa destructor,China,"Yunnan Agricultural University, Kunming, Yunnan Prov.",CHN06,single colony,25.12565,102.74318,May-02,Apis cerana,data/reads/VD577_1.1.fastq.gz,data/reads/VD577_1.2.fastq.gz,no
+VD622_1,VD622_1,Varroa destructor,China,"Apiary of Jinzhong, Yuci, Shanxi Prov.",CHN03,single colony,37.69779,112.70822,Jun-01,Apis mellifera,data/reads/VD622_1.1.fastq.gz,data/reads/VD622_1.2.fastq.gz,no
+VD639_1,VD639_1,Varroa destructor,China,Heilongjiang Prov.,CHN01,single colony,46.61716,131.15727,Sep-01,Apis mellifera,data/reads/VD639_1.1.fastq.gz,data/reads/VD639_1.2.fastq.gz,no
+VD641_1,VD641_1,Varroa destructor,China,"Mianzhu County, Sichuan Prov.",CHN04,single colony,31.33807,104.22074,Sep-01,Apis mellifera,data/reads/VD641_1.1.fastq.gz,data/reads/VD641_1.2.fastq.gz,no
+VD646_1,VD646_1,Varroa destructor,China,"Zhongshan, Guangdong Prov.",CHN09,single colony,23.92799,113.15883,Nov-01,Apis mellifera,data/reads/VD646_1.1.fastq.gz,data/reads/VD646_1.2.fastq.gz,no
+VD651_1,VD651_1,Varroa destructor,China,"Dayao county, Yunnan Prov.",CHN05,single colony,25.72951,101.33661,Apr-02,Apis cerana,data/reads/VD651_1.1.fastq.gz,data/reads/VD651_1.2.fastq.gz,no
+VD654_1,VD654_1,Varroa destructor,China,"Xishuangbanna, Yunnan Prov.",CHN07,single colony,22.00881,100.79714,Apr-02,Apis cerana,data/reads/VD654_1.1.fastq.gz,data/reads/VD654_1.2.fastq.gz,no
+VD657_1,VD657_1,Varroa destructor,China,"Zhongshan, Guangdong Prov.",CHN10,single colony,23.94609,114.69726,Apr-02,Apis cerana,data/reads/VD657_1.1.fastq.gz,data/reads/VD657_1.2.fastq.gz,no
+VD658_2,VD658_2,Varroa destructor,China,"Xishuangbanna, Yunnan Prov.",CHN07,single colony,22.00881,100.79714,Apr-02,Apis cerana,data/reads/VD658_2.1.fastq.gz,data/reads/VD658_2.2.fastq.gz,no
+VD676_2,VD676_2,Varroa destructor,Thailand,Chiang Mai University,THA01,single colony,18.80596,98.95336,Jan-03,Apis cerana,data/reads/VD676_2.1.fastq.gz,data/reads/VD676_2.2.fastq.gz,no
+VD787_2,VD787_2,Varroa jacobsoni,Vietnam,"Rach Gia Town, Kien Giang",VNM04,single colony,10.0215,105.09109,Aug-04,Apis cerana,data/reads/VD787_2.1.fastq.gz,data/reads/VD787_2.2.fastq.gz,no
+VJ028,VJ028,Varroa jacobsoni,Malaysia,"UPM, Serdang, Kuala Lumpur",MYS01,single colony,2.98789,101.73517,Mar-95,Apis cerana,data/reads/VJ028.1.fastq.gz,data/reads/VJ028.2.fastq.gz,no
+VJ325_1,VJ325_1,Varroa jacobsoni,Indonesia,"Kuta, Lombok",IDN05,single colony,-8.88027,116.28361,Apr-98,Apis cerana,data/reads/VJ325_1.1.fastq.gz,data/reads/VJ325_1.2.fastq.gz,no
+VJ333_1,VJ333_1,Varroa jacobsoni,Indonesia,"Parung Panjang, Java",IDN01,single colony,-6.34814,106.56935,Jun-98,Apis cerana,data/reads/VJ333_1.1.fastq.gz,data/reads/VJ333_1.2.fastq.gz,no
+VJ341_1,VJ341_1,Varroa jacobsoni,Indonesia,"Sukabumi, West Java",IDN02,single colony,-6.92387,106.93156,Jun-98,Apis cerana,data/reads/VJ341_1.1.fastq.gz,data/reads/VJ341_1.2.fastq.gz,no
+VJ363_1,VJ363_1,Varroa jacobsoni,Indonesia,"Johor, East Java",IDN04,single colony,-7.22385,112.7332,Jun-98,Apis cerana,data/reads/VJ363_1.1.fastq.gz,data/reads/VJ363_1.2.fastq.gz,no
+VJ565_2,VJ565_2,Varroa jacobsoni,Indonesia,"Gunung Arca, Sukabumi",IDN06,single colony,-6.92656,106.95533,Apr-02,Apis cerana,data/reads/VJ565_2.1.fastq.gz,data/reads/VJ565_2.2.fastq.gz,no
+VJ847,VJ847,Varroa jacobsoni,Papua New Guinea,"Wabag, Enga Province",PNG10,single colony,-5.48267,143.66373,Jun-08,Apis mellifera,data/reads/VJ847.1.fastq.gz,data/reads/VJ847.2.fastq.gz,no
+VJ852_3,VJ852_3,Varroa jacobsoni,Papua New Guinea,"Goroka, Eastern Highlands Prov.",PNG04,single colony,-6.08347,145.38626,May-08,Apis mellifera,data/reads/VJ852_3_V2.1.fastq.gz,data/reads/VJ852_3_V2.2.fastq.gz,no
+VJ853_4,VJ853_4,Varroa jacobsoni,Papua New Guinea,Daru,PNG11,single colony,-9.07819,143.20997,Jun-08,Apis cerana,data/reads/VJ853_4_V2.1.fastq.gz,data/reads/VJ853_4_V2.2.fastq.gz,no
+VJ854_1,VJ854_1,Varroa jacobsoni,Papua New Guinea,Goroka,PNG04,single colony,-6.08347,145.38626,May-08,Apis cerana,data/reads/VJ854_1.1.fastq.gz,data/reads/VJ854_1.2.fastq.gz,no
+VJ856_1,VJ856_1,Varroa jacobsoni,Papua New Guinea,"Henganofi Border, Eastern Highlands Prov.",PNG02,single colony,-6.26035,145.59681,May-08,Apis mellifera,data/reads/VJ856_1.1.fastq.gz,data/reads/VJ856_1.2.fastq.gz,no
+VJ857_2,VJ857_2,Varroa jacobsoni,Papua New Guinea,"Benabena, Eastern Highlands Prov.",PNG03,single colony,-6.11391,145.537,May-08,Apis mellifera,data/reads/VJ857_2.1.fastq.gz,data/reads/VJ857_2.2.fastq.gz,no
+VJ950_1,VJ950_1,Varroa jacobsoni,Papua New Guinea,Aiyura,PNG01,single colony,-6.34334,145.90809,May-97,Apis cerana,data/reads/VJ950_1.1.fastq.gz,data/reads/VJ950_1.2.fastq.gz,no
+VJ953_2,VJ953_2,Varroa jacobsoni,Papua New Guinea,"Benabena, Eastern Highlands Prov.",PNG03,single colony,-6.11391,145.537,May-14,Apis mellifera,data/reads/VJ953_2.1.fastq.gz,data/reads/VJ953_2.2.fastq.gz,no
+VJ954_2,VJ954_2,Varroa jacobsoni,Papua New Guinea,Windy Lodge,PNG09,single colony,-6.01597,144.57512,Jun-14,Apis mellifera,data/reads/VJ954_2.1.fastq.gz,data/reads/VJ954_2.2.fastq.gz,no
+VJ955_1,VJ955_1,Varroa jacobsoni,Papua New Guinea,Donakanage,PNG08,single colony,-5.95482,144.63226,Jun-14,Apis mellifera,data/reads/VJ955_1.1.fastq.gz,data/reads/VJ955_1.2.fastq.gz,no
+VJ956_4,VJ956_4,Varroa jacobsoni,Papua New Guinea,Minj,PNG07,single colony,-5.9071,144.68767,Jun-14,Apis mellifera,data/reads/VJ956_4_V2.1.fastq.gz,data/reads/VJ956_4_V2.2.fastq.gz,no
+VJ983_1,VJ983_1,Varroa jacobsoni,Papua New Guinea,Asaro,PNG06,single colony,-6.0077,145.30881,Nov-15,Apis cerana,data/reads/VJ983_1.1.fastq.gz,data/reads/VJ983_1.2.fastq.gz,no

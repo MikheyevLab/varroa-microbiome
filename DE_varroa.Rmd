@@ -55,6 +55,10 @@ up_down_regulated
 
 ```
 
+```{r}
+male_young_ids = as.vector(DE_genes$target_id)
+```
+
 ###Young vs Phoretic
 
 ```{r}
@@ -86,6 +90,9 @@ DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
+```
+```{r}
+young_phoretic_ids = as.vector(DE_genes$target_id)
 ```
 
 ### Phoretics vs caged
@@ -122,6 +129,10 @@ up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
 ```
+
+```{r}
+phor_caged_ids = as.vector(DE_genes$target_id)
+```
 ### Phoretic vs arresting
 
 ```{r}
@@ -153,6 +164,10 @@ DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
+```
+
+```{r}
+phor_arrest_ids = as.vector(DE_genes$target_id)
 ```
 ### Аrresting vs. pre-laying
 
@@ -186,6 +201,10 @@ up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
 ```
+
+```{r}
+arrest_prelaying_ids = as.vector(DE_genes$target_id)
+```
 ### Pre-laying vs. Laying
 
 ```{r}
@@ -218,6 +237,10 @@ up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
 ```
+
+```{r}
+prelaying_laying_ids = as.vector(DE_genes$target_id)
+```
 ### Laying vs. post-laying
 
 ```{r}
@@ -249,6 +272,10 @@ DE_genes
 up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
+```
+
+```{r}
+laying_postlaying_ids = as.vector(DE_genes$target_id)
 ```
 
 ### Post-laying vs. Emerging
@@ -286,6 +313,9 @@ up_down_regulated
 
 ```
 
+```{r}
+postlaying_emerging_ids = as.vector(DE_genes$target_id)
+```
 ### Post-laying vs. non-laying
 
 ```{r}
@@ -319,6 +349,9 @@ up_down_regulated
 
 ```
 
+```{r}
+postlaying_nonlaying_ids = as.vector(DE_genes$target_id)
+```
 ### Laying vs. non-laying
 
 ```{r}
@@ -351,7 +384,9 @@ up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
 ```
-
+```{r}
+laying_nonlaying_ids = as.vector(DE_genes$target_id)
+```
 ### Emerging vs. Phoretic
 
 ```{r}
@@ -384,7 +419,9 @@ up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
 ```
-
+```{r}
+emerging_phoretic_ids = as.vector(DE_genes$target_id)
+```
 ### Emerging vs. Young
 
 ```{r}
@@ -417,3 +454,14 @@ up_down_regulated = table(DE_genes$b > 0)
 up_down_regulated
 
 ```
+
+```{r}
+emerging_young_ids = as.vector(DE_genes$target_id)
+```
+
+```{r}
+#fwrite(as.list(DEGs_unique), "Microbe_DEG_IDs.txt")
+write.csv(DEGs_unique, "Microbe_DEG_IDs.csv",  row.names = F)
+
+```
+
