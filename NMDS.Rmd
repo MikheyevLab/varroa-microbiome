@@ -1,0 +1,169 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(vegan)
+library(ggplot2)
+library(ggpubr)
+```
+
+```{r}
+all_sample_abundance = read.csv("/Users/lazzataibekova/Dropbox (OIST)/Mikheyev Lab/Git/varroa-microbiome/all_sample_abundance.csv", header = T, row.names = 1)
+```
+#NOT transformed
+```{r}
+my_data = all_sample_abundance[,1:8786]
+row.names(my_data) = all_sample_abundance$samples
+dissmatrix <- vegdist(my_data, method = "euclidian")
+m = monoMDS(dissmatrix, model = "global")
+
+
+MDS_xy <- data.frame(m$points)
+MDS_xy = data.frame(MDS1 = m$points[,1], MDS2 = m$points[,2])
+MDS_xy$samples <- rownames(MDS_xy)
+MDS_xy$species <- as.character(all_sample_abundance$species)
+MDS_xy$country <- as.character(all_sample_abundance$country)
+MDS_xy$host <- as.character(all_sample_abundance$host)
+
+p1 = ggplot(MDS_xy, aes(MDS1, MDS2, color = MDS_xy$host, shape = MDS_xy$species))+
+  geom_point()+
+  coord_equal() + scale_colour_brewer(palette = "Set2") + theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank())
+p2 = ggplot(MDS_xy, aes(MDS1, MDS2, color = MDS_xy$country, shape = MDS_xy$species))+
+  geom_point()+
+  coord_equal() + scale_colour_brewer(palette = "Set2") + theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank())
+ggarrange(p1, p2, legend = "right", ncol = 2, nrow = 1)
+```
+#TRANSFOEMD DATA
+#set negatives to zro and use bray dist method
+```{r}
+my_data_transformed = my_data
+row.names(my_data_transformed) = all_sample_abundance$samples
+my_data_transformed[my_data_transformed<0] = 0
+dissmatrix_transformed = vegdist(my_data_transformed, method = "bray")
+m_t = metaMDS(my_data_transformed, distance = "bray")
+
+MDS_xy_t <- data.frame(m_t$points)
+MDS_xy_t = data.frame(MDS1 = m_t$points[,1], MDS2 = m_t$points[,2])
+MDS_xy_t$samples <- rownames(MDS_xy_t)
+MDS_xy_t$species <- as.character(all_sample_abundance$species)
+MDS_xy_t$country <- as.character(all_sample_abundance$country)
+MDS_xy_t$host <- as.character(all_sample_abundance$host)
+
+p1 = ggplot(MDS_xy_t, aes(MDS1, MDS2, color = MDS_xy_t$host, shape = MDS_xy_t$species))+
+  geom_point()+
+  coord_equal() + scale_colour_brewer(palette = "Set2") + theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank())
+p2 = ggplot(MDS_xy_t, aes(MDS1, MDS2, color = MDS_xy_t$country, shape = MDS_xy_t$species))+
+  geom_point()+
+  coord_equal() + scale_colour_brewer(palette = "Set2") + theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank())
+ggarrange(p1, p2, legend = "right", ncol = 2, nrow = 1)
+```
+#FUNCTION to get dist matrix for geography
+```{r}
+ReplaceLowerOrUpperTriangle <- function(m, triangle.to.replace){
+  # If triangle.to.replace="lower", replaces the lower triangle of a square matrix with its upper triangle.
+  # If triangle.to.replace="upper", replaces the upper triangle of a square matrix with its lower triangle.
+
+  if (nrow(m) != ncol(m)) stop("Supplied matrix must be square.")
+  if      (tolower(triangle.to.replace) == "lower") tri <- lower.tri(m)
+  else if (tolower(triangle.to.replace) == "upper") tri <- upper.tri(m)
+  else stop("triangle.to.replace must be set to 'lower' or 'upper'.")
+  m[tri] <- t(m)[tri]
+  return(m)
+}
+
+
+GeoDistanceInMetresMatrix <- function(df.geopoints){
+  # Returns a matrix (M) of distances between geographic points.
+  # M[i,j] = M[j,i] = Distance between (df.geopoints$lat[i], df.geopoints$lon[i]) and
+  # (df.geopoints$lat[j], df.geopoints$lon[j]).
+  # The row and column names are given by df.geopoints$name.
+
+  GeoDistanceInMetres <- function(g1, g2){
+    # Returns a vector of distances. (But if g1$index > g2$index, returns zero.)
+    # The 1st value in the returned vector is the distance between g1[[1]] and g2[[1]].
+    # The 2nd value in the returned vector is the distance between g1[[2]] and g2[[2]]. Etc.
+    # Each g1[[x]] or g2[[x]] must be a list with named elements "index", "lat" and "lon".
+    # E.g. g1 <- list(list("index"=1, "lat"=12.1, "lon"=10.1), list("index"=3, "lat"=12.1, "lon"=13.2))
+    DistM <- function(g1, g2){
+      require("Imap")
+      return(ifelse(g1$index > g2$index, 0, gdist(lat.1=g1$lat, lon.1=g1$lon, lat.2=g2$lat, lon.2=g2$lon, units="m")))
+    }
+    return(mapply(DistM, g1, g2))
+  }
+
+  n.geopoints <- nrow(df.geopoints)
+
+  # The index column is used to ensure we only do calculations for the upper triangle of points
+  df.geopoints$index <- 1:n.geopoints
+
+  # Create a list of lists
+  list.geopoints <- by(df.geopoints[,c("index", "lat", "lon")], 1:n.geopoints, function(x){return(list(x))})
+
+  # Get a matrix of distances (in metres)
+  mat.distances <- ReplaceLowerOrUpperTriangle(outer(list.geopoints, list.geopoints, GeoDistanceInMetres), "lower")
+
+  # Set the row and column names
+  rownames(mat.distances) <- df.geopoints$name
+  colnames(mat.distances) <- df.geopoints$name
+
+  return(mat.distances)
+}
+```
+
+```{r}
+geog_data = data.frame(name = all_sample_abundance$group,
+                       lat = all_sample_abundance$lat,
+                       lon = all_sample_abundance$long)
+
+dist_geog =round(GeoDistanceInMetresMatrix(geog_data) / 1000)
+```
+
+```{r}
+mantel_test = mantel(dist_geog, dissmatrix_transformed)
+```
+#PERMANOVA
+```{r}
+#WITH DISTANCE MATRIX
+(permanova.specieshost <- adonis(dissmatrix_transformed ~ species * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+(permanova.specieshost <- adonis(dissmatrix_transformed ~ species + host, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+(permanova.country <- adonis(dissmatrix_transformed ~ country, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # sig
+
+#WITHOUT DIST MATRIX
+(permanova.species <- adonis(my_data_transformed ~ species, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+(permanova.specieshost <- adonis(dist_geog ~ species, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+
+
+
+
+
+```
+##GEOGRAPHY
+```{r}
+(permanova.geographyspecies <- adonis(dist_geog ~ species, data = all_sample_abundance, permutations = 999, method = "euclidean"))
+(permanova.geographyspecieshost <- adonis(dist_geog ~ species * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))
+(permanova.geographyhost <- adonis(dist_geog ~ host * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))
+```
+
+#BETADISPER
+```{r}
+group = as.factor(all_sample_abundance$species)
+mod = betadisper(dissmatrix_transformed, group)
+mod
+```
+
