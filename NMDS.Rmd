@@ -7,17 +7,17 @@ output:
 
 ```{r}
 library(vegan)
-library(ggplot2)
 library(ggpubr)
+library(tidyverse)
+library(Imap) # for geographic distance
 ```
 
 ```{r}
-all_sample_abundance = read.csv("/Users/lazzataibekova/Dropbox (OIST)/Mikheyev Lab/Git/varroa-microbiome/all_sample_abundance.csv", header = T, row.names = 1)
+all_sample_abundance = read.csv("all_sample_abundance.csv", header = T, row.names = 1)
 ```
 #NOT transformed
 ```{r}
-my_data = all_sample_abundance[,1:8786]
-row.names(my_data) = all_sample_abundance$samples
+my_data <- all_sample_abundance %>% select(-c(group, species, country, location, site.code,origin,lat,long,date,host,r1,r2,Wolbachia.present)) 
 dissmatrix <- vegdist(my_data, method = "euclidian")
 m = monoMDS(dissmatrix, model = "global")
 
@@ -43,36 +43,7 @@ p2 = ggplot(MDS_xy, aes(MDS1, MDS2, color = MDS_xy$country, shape = MDS_xy$speci
         panel.border = element_blank(), panel.background = element_blank())
 ggarrange(p1, p2, legend = "right", ncol = 2, nrow = 1)
 ```
-#TRANSFOEMD DATA
-#set negatives to zro and use bray dist method
-```{r}
-my_data_transformed = my_data
-row.names(my_data_transformed) = all_sample_abundance$samples
-my_data_transformed[my_data_transformed<0] = 0
-dissmatrix_transformed = vegdist(my_data_transformed, method = "bray")
-m_t = metaMDS(my_data_transformed, distance = "bray")
 
-MDS_xy_t <- data.frame(m_t$points)
-MDS_xy_t = data.frame(MDS1 = m_t$points[,1], MDS2 = m_t$points[,2])
-MDS_xy_t$samples <- rownames(MDS_xy_t)
-MDS_xy_t$species <- as.character(all_sample_abundance$species)
-MDS_xy_t$country <- as.character(all_sample_abundance$country)
-MDS_xy_t$host <- as.character(all_sample_abundance$host)
-
-p1 = ggplot(MDS_xy_t, aes(MDS1, MDS2, color = MDS_xy_t$host, shape = MDS_xy_t$species))+
-  geom_point()+
-  coord_equal() + scale_colour_brewer(palette = "Set2") + theme_bw() +
-  theme(axis.line = element_line(colour = "black"),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.border = element_blank(), panel.background = element_blank())
-p2 = ggplot(MDS_xy_t, aes(MDS1, MDS2, color = MDS_xy_t$country, shape = MDS_xy_t$species))+
-  geom_point()+
-  coord_equal() + scale_colour_brewer(palette = "Set2") + theme_bw() +
-  theme(axis.line = element_line(colour = "black"),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.border = element_blank(), panel.background = element_blank())
-ggarrange(p1, p2, legend = "right", ncol = 2, nrow = 1)
-```
 #FUNCTION to get dist matrix for geography
 ```{r}
 ReplaceLowerOrUpperTriangle <- function(m, triangle.to.replace){
@@ -101,7 +72,7 @@ GeoDistanceInMetresMatrix <- function(df.geopoints){
     # Each g1[[x]] or g2[[x]] must be a list with named elements "index", "lat" and "lon".
     # E.g. g1 <- list(list("index"=1, "lat"=12.1, "lon"=10.1), list("index"=3, "lat"=12.1, "lon"=13.2))
     DistM <- function(g1, g2){
-      require("Imap")
+
       return(ifelse(g1$index > g2$index, 0, gdist(lat.1=g1$lat, lon.1=g1$lon, lat.2=g2$lat, lon.2=g2$lon, units="m")))
     }
     return(mapply(DistM, g1, g2))
@@ -135,29 +106,19 @@ dist_geog =round(GeoDistanceInMetresMatrix(geog_data) / 1000)
 ```
 
 ```{r}
-mantel_test = mantel(dist_geog, dissmatrix_transformed)
+mantel_test = mantel(dist_geog, dissmatrix)
+mantel_test
 ```
 #PERMANOVA
 ```{r}
 #WITH DISTANCE MATRIX
-(permanova.specieshost <- adonis(dissmatrix_transformed ~ species * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
-(permanova.specieshost <- adonis(dissmatrix_transformed ~ species + host, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
-(permanova.country <- adonis(dissmatrix_transformed ~ country, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # sig
+(permanova.specieshost <- adonis(dissmatrix ~ species * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+(permanova.specieshost <- adonis(dissmatrix ~ species + host, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+(permanova.country <- adonis(dissmatrix ~ country, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # sig
 
 #WITHOUT DIST MATRIX
-(permanova.species <- adonis(my_data_transformed ~ species, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
-(permanova.specieshost <- adonis(dist_geog ~ species, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
+(permanova.species <- adonis(dissmatrix ~ species + host + Wolbachia.present, data = all_sample_abundance, permutations = 999, method = "euclidean"))  # ns
 
-
-
-
-
-```
-##GEOGRAPHY
-```{r}
-(permanova.geographyspecies <- adonis(dist_geog ~ species, data = all_sample_abundance, permutations = 999, method = "euclidean"))
-(permanova.geographyspecieshost <- adonis(dist_geog ~ species * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))
-(permanova.geographyhost <- adonis(dist_geog ~ host * host, data = all_sample_abundance, permutations = 999, method = "euclidean"))
 ```
 
 #BETADISPER
